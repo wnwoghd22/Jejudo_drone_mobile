@@ -39,15 +39,20 @@ const UserContextProvider = ({ children } : Props) => {
         auth.signInWithEmailAndPassword(email, password).then(result => {
             if(result) {
                 AsyncStorage.setItem('token', result.user.toJSON().toString()).then(() => {
-                    setUser({
-                        id: result.user.uid,
-                        name: result.user.displayName,
-                        authority: 'student',
-                    } as IUser);
+                    Client.fetchAccount(result.user.uid).then(response => { 
+                        let account = response.data.account;
+                        setUser({
+                            id: result.user.uid,
+                            name: account.name,
+                            authority: account.authority,
+                        } as IUser);
+                    })
 
                     setIsLoading(true);
                 })
             }
+        }).catch(err => {
+            console.log(err);
         })
     }
 
@@ -56,7 +61,7 @@ const UserContextProvider = ({ children } : Props) => {
             if(value) {
 
             }
-        })
+        });
     }
 
     const logout = () : void => {

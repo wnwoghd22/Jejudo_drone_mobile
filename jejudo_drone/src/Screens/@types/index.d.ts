@@ -6,3 +6,13 @@ type LoginParamList = {
 type MainPageParamList = {
     MainPage: undefined;
 }
+
+type NoticePageParamList = {
+    NoticeList: undefined;
+    Notice: undefined;
+    PostPage: undefined; 
+}
+
+type ScheduleParamList = {
+    
+}
