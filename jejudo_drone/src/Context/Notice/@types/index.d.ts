@@ -4,7 +4,7 @@ interface INotice {
     date?: Date;
     writer?: {
         id?: string
-        name?: String
+        name?: string
     };
     body?: string;
 }
@@ -14,7 +14,7 @@ interface INoticeContext {
     list: INotice[] | undefined;
     notice: INotice | undefined;
     fetchList: () => void;
-    getList: () => void;
+    getList: () => Array<INotice>;
     fetchNotice: (id: string) => void;
     postNotice: (payload: INotice) => void;
     deleteNotice: (id: string) => void;

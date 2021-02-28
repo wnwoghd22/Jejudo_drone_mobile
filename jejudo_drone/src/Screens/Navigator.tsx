@@ -1,32 +1,43 @@
-import React, { createContext, useContext } from 'react';
-import Title from 'react-native';
+import React, { useContext, useLayoutEffect } from 'react';
+import NavigationProp from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { UserContext } from '@src/Context/UserData'
+import { createDrawerNavigator, DrawerNavigationProp } from '@react-navigation/drawer';
+import { UserContext } from '@src/Context/UserData';
 
+import Loading from '@src/Screens/Loading';
 import Login from '@src/Screens/Login';
-import MainPage from '@src/Screens/MainPage';
+import MainPage from '@src/Screens/MainTab';
+import NoticeTab from '@src/Screens/NoticeTab';
+
+import DrawerMenu from '@src/Components/Drawer';
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const MainNavigator = () => {
+
+    useLayoutEffect(() => {
+
+    })
+
     return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name = 'main'
-                component = {MainPage}
-            />
-        </Stack.Navigator>
+        <Drawer.Navigator
+            drawerPosition = "right"
+            drawerType = "slide"
+            drawerContent = {props => <DrawerMenu {...props}/>}
+        >
+            <Drawer.Screen name = 'Main' component = {MainPage} />
+            <Drawer.Screen name = 'Notice' component = {NoticeTab} />
+        </Drawer.Navigator>
     )
 }
 
 const LoginNavigator = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen
-                name = 'login'
-                component = {Login}
-            />
+            <Stack.Screen name = 'login' component = {Login} />
+            <Stack.Screen name = 'SignIn' component = {() => <></>}/>
         </Stack.Navigator>
     )
 }
@@ -34,9 +45,9 @@ const LoginNavigator = () => {
 export default () => {
     const {isLoading, user} = useContext<IUserContext>(UserContext);
 
-    /*if (isLoading) {
-
-    }*/
+    if (isLoading === false) {
+        return <Loading/>;
+    }
 
     return (
         <NavigationContainer>

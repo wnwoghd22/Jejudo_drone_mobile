@@ -3,14 +3,17 @@ import { StatusBar } from 'react-native';
 
 import Navigator from '@src/Screens/Navigator';
 import { UserContextProvider } from '@src/Context/UserData';
+import { NoticeContextProvider } from '@src/Context/Notice';
 
 interface Props {}
 
 const App = ({} : Props) => {
   return (
     <UserContextProvider>
-      <StatusBar barStyle = "default" />
-      <Navigator />
+      <NoticeContextProvider>
+        <StatusBar barStyle = "default" />
+        <Navigator />
+      </NoticeContextProvider>
     </UserContextProvider>
   );
 };

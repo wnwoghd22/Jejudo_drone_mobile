@@ -7,7 +7,7 @@ const defaultContext : INoticeContext = {
     notice: undefined,
     isLoading: false,
     fetchList: () => {},
-    getList: () => {},
+    getList: () => [],
     fetchNotice: (id: string) => {},
     postNotice: (payload: INotice) => {},
     deleteNotice: (id: string) => {},
@@ -27,24 +27,19 @@ const NoticeContextProvider = ({ children } : Props) => {
     const fetchList = () : void => {
         Client.fetchNoticeList().then(response => {
             if (response.data.announcements) {
+                console.log(response.data.announcements);
                 setNoticeList(response.data.announcements);
-                AsyncStorage.setItem('noticeList', noticeList.toString());
-                setIsLoading(true);
-            } else {
-                setIsLoading(true);
             }
+            setIsLoading(true);
         }).catch(err => {
             console.log(err);
         })
     }
 
-    const getList = () : void => {
-        AsyncStorage.getItem('noticeList').then(result => {
-            setNoticeList(JSON.parse(result));
-        })
-    }
+    const getList = () : Array<INotice> => noticeList;
 
     const fetchNotice = (id: string) : void => {
+        console.log(id);
         Client.fetchNotice(id).then(response => {
             if (response.data.content) {
                 setNotice(response.data.content);
@@ -63,7 +58,7 @@ const NoticeContextProvider = ({ children } : Props) => {
     }
 
     useEffect(() => {
-        getList();
+        fetchList();
     }, []);
 
     return (
@@ -84,4 +79,4 @@ const NoticeContextProvider = ({ children } : Props) => {
     );
 }
 
-export default NoticeContextProvider;
+export { NoticeContext, NoticeContextProvider }

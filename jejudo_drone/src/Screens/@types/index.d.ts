@@ -3,16 +3,27 @@ type LoginParamList = {
     SignUp: undefined;
 }
 
+/**
+ * ParamList for MainNavigator (DrawerNavigator)
+ */
 type MainPageParamList = {
-    MainPage: undefined;
+    Main: undefined;
+    Account: undefined;
+    Notice: undefined;
+    Schedule: undefined;
 }
 
 type NoticePageParamList = {
     NoticeList: undefined;
-    Notice: undefined;
+    Notice: {
+        id: string;
+    };
     PostPage: undefined; 
 }
 
 type ScheduleParamList = {
-    
+    Calendar: undefined;
+    Part: {
+        date: string;
+    }
 }

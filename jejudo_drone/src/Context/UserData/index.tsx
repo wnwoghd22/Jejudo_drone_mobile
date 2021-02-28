@@ -41,11 +41,13 @@ const UserContextProvider = ({ children } : Props) => {
                 AsyncStorage.setItem('token', result.user.toJSON().toString()).then(() => {
                     Client.fetchAccount(result.user.uid).then(response => { 
                         let account = response.data.account;
-                        setUser({
+                        let data = {
                             id: result.user.uid,
                             name: account.name,
                             authority: account.authority,
-                        } as IUser);
+                        }  as IUser;
+                        setUser(data);
+                        AsyncStorage.setItem('user', JSON.stringify(data));
                     })
 
                     setIsLoading(true);
@@ -57,10 +59,16 @@ const UserContextProvider = ({ children } : Props) => {
     }
 
     const getUser = () : void => {
-        AsyncStorage.getItem('token').then(value => {
+        AsyncStorage.getItem('user').then(value => {
             if(value) {
-
+                console.log(value);
+                let data = JSON.parse(value) as IUser;
+                setUser(data);
+                console.log('loaded!');
             }
+            setIsLoading(true);
+        }).catch(err => {
+            console.log(err);
         });
     }
 
@@ -68,6 +76,10 @@ const UserContextProvider = ({ children } : Props) => {
         AsyncStorage.removeItem('token');
         setUser(undefined);
     }
+
+    useEffect(() => {
+        getUser();
+    }, []);
 
     return (
         <UserContext.Provider
