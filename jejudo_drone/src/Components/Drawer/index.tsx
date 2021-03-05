@@ -71,13 +71,12 @@ const DrawerMenu = (props) => {
                 label = '공지사항'
                 onPress = {() => props.navigation.navigate('Notice')}
             />
+
+            <DrawerItem
+                label = '수업 신청'
+                onPress = {() => props.navigation.navigate('Schedule')}
+            />
            
-            <Button onPress = {() => props.navigation.navigate('Schedule')}>
-                <ButtonContainer>
-                    <Icon />
-                    <Label>수업 신청</Label>
-                </ButtonContainer>
-            </Button>
             <Footer>
                 <Button onPress = {() => {
                     logout();

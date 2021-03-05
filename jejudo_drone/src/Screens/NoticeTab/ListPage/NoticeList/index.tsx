@@ -13,12 +13,12 @@ interface Props {
 }
 
 const NoticeList = ({ navigation } : Props) => {
-    const {getList} = useContext<INoticeContext>(NoticeContext);
+    const {list} = useContext<INoticeContext>(NoticeContext);
     const [ noticeList, setNoticeList ] = useState<Array<INotice>>([]);
 
     useEffect(() => {
-        setNoticeList(getList());
-    }, []);
+        setNoticeList(list);
+    }, [list]);
 
     return (
         <ListContainer>

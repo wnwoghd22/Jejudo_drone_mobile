@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 import Navigator from '@src/Screens/Navigator';
 import { UserContextProvider } from '@src/Context/UserData';
 import { NoticeContextProvider } from '@src/Context/Notice';
+import { ScheduleContextProvider } from '@src/Context/Schedule';
 
 interface Props {}
 
@@ -11,8 +12,10 @@ const App = ({} : Props) => {
   return (
     <UserContextProvider>
       <NoticeContextProvider>
-        <StatusBar barStyle = "default" />
-        <Navigator />
+        <ScheduleContextProvider>
+          <StatusBar barStyle = "default" />
+          <Navigator />
+        </ScheduleContextProvider>
       </NoticeContextProvider>
     </UserContextProvider>
   );

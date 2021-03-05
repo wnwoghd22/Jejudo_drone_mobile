@@ -9,6 +9,7 @@ import Loading from '@src/Screens/Loading';
 import Login from '@src/Screens/Login';
 import MainPage from '@src/Screens/MainTab';
 import NoticeTab from '@src/Screens/NoticeTab';
+import ScheduleTab from '@src/Screens/ScheduleTab';
 
 import DrawerMenu from '@src/Components/Drawer';
 
@@ -29,6 +30,7 @@ const MainNavigator = () => {
         >
             <Drawer.Screen name = 'Main' component = {MainPage} />
             <Drawer.Screen name = 'Notice' component = {NoticeTab} />
+            <Drawer.Screen name = 'Schedule' component = {ScheduleTab} />
         </Drawer.Navigator>
     )
 }

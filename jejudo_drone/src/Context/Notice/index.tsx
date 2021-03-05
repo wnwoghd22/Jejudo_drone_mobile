@@ -7,7 +7,6 @@ const defaultContext : INoticeContext = {
     notice: undefined,
     isLoading: false,
     fetchList: () => {},
-    getList: () => [],
     fetchNotice: (id: string) => {},
     postNotice: (payload: INotice) => {},
     deleteNotice: (id: string) => {},
@@ -35,8 +34,6 @@ const NoticeContextProvider = ({ children } : Props) => {
             console.log(err);
         })
     }
-
-    const getList = () : Array<INotice> => noticeList;
 
     const fetchNotice = (id: string) : void => {
         console.log(id);
@@ -68,7 +65,6 @@ const NoticeContextProvider = ({ children } : Props) => {
                 list : noticeList,
                 notice,
                 fetchList,
-                getList,
                 fetchNotice,
                 postNotice,
                 deleteNotice,

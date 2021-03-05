@@ -14,7 +14,6 @@ interface INoticeContext {
     list: INotice[] | undefined;
     notice: INotice | undefined;
     fetchList: () => void;
-    getList: () => Array<INotice>;
     fetchNotice: (id: string) => void;
     postNotice: (payload: INotice) => void;
     deleteNotice: (id: string) => void;
