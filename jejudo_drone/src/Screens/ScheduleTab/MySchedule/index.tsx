@@ -5,6 +5,8 @@ import Styled from 'styled-components/native';
 
 import { ScheduleContext } from '@src/Context/Schedule';
 
+import Button from '@src/Components/Button';
+
 import Loading from '@src/Screens/Loading';
 import ListItem from './ListItem';
 
@@ -40,6 +42,12 @@ const MySchedule = ({ navigation } : Props) => {
                         content = {item}
                     />
                 )}
+            />
+            <Button
+                label = "신청"
+                onPress = {() => {
+                    navigation.navigate('Calendar');
+                }}
             />
         </Container>
     );

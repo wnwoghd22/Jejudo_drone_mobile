@@ -42,8 +42,15 @@ const ScheduleContextProvider = ({ children } : Props) => {
             if(result.data.result === "already exist") {
                 Alert.alert("이미 신청되어 있습니다.");
             } else {
-                Client.postStudentToList(time.date, time.part, user);
-                Alert.alert("신청되었습니다.");
+                let payload = {
+                    key: user.id,
+                    name: user.name,
+                }
+                Client.postStudentToList(time.date, time.part, payload).then(response => {
+                    Alert.alert("신청되었습니다.");
+                }).catch(err => {
+                    console.log(err.response.data);
+                });
             }
         })
     }

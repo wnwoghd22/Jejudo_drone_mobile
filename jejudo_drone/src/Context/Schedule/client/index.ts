@@ -1,7 +1,7 @@
 import { AxiosResponse, CancelToken } from 'axios';
 import { instance } from '@src/Context/clientConfig'
 
-const postStudentToList = (date: string, part: string, payload: IUser, cancelToken = null) :
+const postStudentToList = (date: string, part: string, payload: {key: string, name: string, }, cancelToken: CancelToken = null) :
 Promise<AxiosResponse<{ result: string }>> => {
     return instance.post(`/schedule/${date}/${part}`, payload, {
         cancelToken
