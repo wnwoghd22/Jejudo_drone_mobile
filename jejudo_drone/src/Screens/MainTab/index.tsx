@@ -1,34 +1,28 @@
-import React, { useContext, useState, useLayoutEffect } from 'react';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React, { useContext, useLayoutEffect } from 'react';
+
+import { Button } from 'react-native';
 import { DrawerActions } from '@react-navigation/native';
 
-import Input from '@src/Components/Input';
-import Button from '@src/Components/Button';
-
-import Styled from 'styled-components/native';
-
+import NavigationProp from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator, DrawerNavigationProp } from '@react-navigation/drawer';
 import { UserContext } from '@src/Context/UserData';
+
 import MenuButton from '@src/Components/Drawer/MenuButton';
 
-const Container = Styled.SafeAreaView`
-    flex: 1;
-`;
-const FormContainer = Styled.View`
-    flex: 1;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-`;
-const StyledText = Styled.Text``;
+import MainPage from './MainPage';
+
+const Stack = createStackNavigator();
 
 type NavigationProp = DrawerNavigationProp<MainPageParamList, 'Main'>;
 interface Props {
     navigation: NavigationProp;
 }
 
-const MainPage = ({ navigation } : Props) => {
-    const {user, logout} = useContext<IUserContext>(UserContext);
 
+const MainTab = ({navigation} : Props) => {
+    
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
@@ -39,14 +33,23 @@ const MainPage = ({ navigation } : Props) => {
     }, []);
 
     return (
-        <Container>
-            <FormContainer>
-                <StyledText
-                    onPress = {() => navigation.dispatch(DrawerActions.openDrawer())}
-                >{user.name}</StyledText>
-            </FormContainer>
-        </Container>
+        <Stack.Navigator>
+            <Stack.Screen
+                name = 'Main'
+                component = {MainPage}
+                options = {{
+                    title: "공지사항",
+                    headerRight: () => (
+                        //<MenuButton navigation = {navigation}/>
+                        <Button
+                            title = "메뉴"
+                            onPress = {() => navigation.dispatch(DrawerActions.openDrawer())}
+                        />
+                    ),
+                }}
+            />
+        </Stack.Navigator>
     );
 }
 
-export default MainPage;
+export default MainTab;

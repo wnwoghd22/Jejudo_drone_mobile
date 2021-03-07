@@ -7,7 +7,7 @@ import { UserContext } from '@src/Context/UserData';
 
 import Loading from '@src/Screens/Loading';
 import Login from '@src/Screens/Login';
-import MainPage from '@src/Screens/MainTab';
+import MainTab from '@src/Screens/MainTab';
 import NoticeTab from '@src/Screens/NoticeTab';
 import ScheduleTab from '@src/Screens/ScheduleTab';
 
@@ -28,7 +28,7 @@ const MainNavigator = () => {
             drawerType = "slide"
             drawerContent = {props => <DrawerMenu {...props}/>}
         >
-            <Drawer.Screen name = 'Main' component = {MainPage} />
+            <Drawer.Screen name = 'Main' component = {MainTab} />
             <Drawer.Screen name = 'Notice' component = {NoticeTab} />
             <Drawer.Screen name = 'Schedule' component = {ScheduleTab} />
         </Drawer.Navigator>

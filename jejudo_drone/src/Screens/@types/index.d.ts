@@ -13,6 +13,10 @@ type MainPageParamList = {
     Schedule: undefined;
 }
 
+type MainTabParamList = {
+    Main: undefined;
+}
+
 type NoticePageParamList = {
     NoticeList: undefined;
     Notice: {

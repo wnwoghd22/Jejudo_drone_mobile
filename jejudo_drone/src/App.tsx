@@ -5,6 +5,7 @@ import Navigator from '@src/Screens/Navigator';
 import { UserContextProvider } from '@src/Context/UserData';
 import { NoticeContextProvider } from '@src/Context/Notice';
 import { ScheduleContextProvider } from '@src/Context/Schedule';
+import { WeatherContextProvider } from '@src/Context/Weather';
 
 interface Props {}
 
@@ -13,8 +14,10 @@ const App = ({} : Props) => {
     <UserContextProvider>
       <NoticeContextProvider>
         <ScheduleContextProvider>
-          <StatusBar barStyle = "default" />
-          <Navigator />
+          <WeatherContextProvider>
+            <StatusBar barStyle = "default" />
+            <Navigator />
+          </WeatherContextProvider>
         </ScheduleContextProvider>
       </NoticeContextProvider>
     </UserContextProvider>
