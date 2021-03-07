@@ -12,6 +12,7 @@ import { UserContext } from '@src/Context/UserData';
 import MenuButton from '@src/Components/Drawer/MenuButton';
 
 import MainPage from './MainPage';
+import WeatherPage from './WeatherPage';
 
 const Stack = createStackNavigator();
 
@@ -38,7 +39,21 @@ const MainTab = ({navigation} : Props) => {
                 name = 'Main'
                 component = {MainPage}
                 options = {{
-                    title: "공지사항",
+                    title: "JEJUDO DRONE",
+                    headerRight: () => (
+                        //<MenuButton navigation = {navigation}/>
+                        <Button
+                            title = "메뉴"
+                            onPress = {() => navigation.dispatch(DrawerActions.openDrawer())}
+                        />
+                    ),
+                }}
+            />
+            <Stack.Screen
+                name = 'Weather'
+                component = {WeatherPage}
+                options = {{
+                    title: "비행장 날씨",
                     headerRight: () => (
                         //<MenuButton navigation = {navigation}/>
                         <Button

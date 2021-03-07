@@ -15,6 +15,7 @@ type MainPageParamList = {
 
 type MainTabParamList = {
     Main: undefined;
+    Weather: undefined;
 }
 
 type NoticePageParamList = {

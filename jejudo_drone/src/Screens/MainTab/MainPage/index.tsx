@@ -9,6 +9,8 @@ import Styled from 'styled-components/native';
 import { UserContext } from '@src/Context/UserData';
 import MenuButton from '@src/Components/Drawer/MenuButton';
 
+import WeatherSection from './WeatherSection';
+
 const Container = Styled.SafeAreaView`
     flex: 1;
 `;
@@ -28,10 +30,15 @@ interface Props {
 const MainPage = ({ navigation } : Props) => {
     const {user, logout} = useContext<IUserContext>(UserContext);
 
+
+
     return (
         <Container>
             <FormContainer>
                 <StyledText>{user.name}</StyledText>
+                <WeatherSection onPress = {() => {
+                    navigation.navigate('Weather');
+                }}/>
             </FormContainer>
         </Container>
     );

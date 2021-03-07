@@ -1,3 +1,4 @@
+import { resolvePlugin } from '@babel/core';
 import React, { createContext, useEffect, useState } from 'react';
 import * as Client from './client';
 
@@ -5,6 +6,7 @@ const defaultContext : IWeatherContext = {
     isLoading: false,
     weather: undefined,
     fetchWeather: () => {},
+    refresh: () => {},
 }
 
 const WeatherContext = createContext<IWeatherContext>(defaultContext);
@@ -17,11 +19,23 @@ const WeatherContextProvider = ({ children } : Props) => {
     const [ isLoading, setIsLoading ] = useState<boolean>(false);
     const [ weather, setWeather ] = useState<IWeather | undefined>(undefined);
 
-    const fetchWeather = () => Client.fetchWeather();
+    const fetchWeather = () => {
+        setIsLoading(false);
+        Client.fetchWeather().then(response => {
+            setWeather(response);
+            setIsLoading(true);
+        })
+    }
+
+    const refresh = () => {
+        fetchWeather();
+    }
 
     useEffect(() => {
         fetchWeather();
     }, []);
+
+    console.log(weather);
 
     return (
         <WeatherContext.Provider
@@ -29,6 +43,7 @@ const WeatherContextProvider = ({ children } : Props) => {
                 isLoading,
                 weather,
                 fetchWeather,
+                refresh,
             }}
         >
             {children}

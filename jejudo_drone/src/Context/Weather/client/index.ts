@@ -19,12 +19,24 @@ http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtFcst
 http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst
 ?serviceKey=인증키&numOfRows=10&pageNo=1
 &base_date=20151021&base_time=0230&nx=55&ny=127
-
 */
 
-const fetchWeather = () : IWeather => {
+interface Item {
+    baseDate: string,
+    baseTime: string,
+    category: string,
+    nx: number,
+    ny: number,
+    obsrValue: string,
+}
+
+const fetchWeather = async () : Promise<IWeather> => {
     let service = {
-        ultra: 'getUltraSrtFcst',
+        /**초단기 실황 조회 */
+        ultraN: 'getUltraSrtNcst',
+        /**초단기 예보 조회 */
+        ultraF: 'getUltraSrtFcst',
+        /**동네 예보 조회 */
         vilage: 'getVilageFcst',
     }
 
@@ -35,7 +47,7 @@ const fetchWeather = () : IWeather => {
     var hours = today.getHours();
     var minutes = today.getMinutes();
     console.log("time " + minutes)
-    if(minutes < 30){
+    if(minutes < 40){
         // 30분보다 작으면 한시간 전 값
         hours = hours - 1;
         if(hours < 0){
@@ -61,16 +73,64 @@ const fetchWeather = () : IWeather => {
         dStr = '0' + dd;
     } else { dStr = dd.toString(); }
 
-    let weather_url = `http://apis.data.go.kr/1360000/VilageFcstInfoService/${service.vilage}?serviceKey=${weather_key}&dataType=JSON&numOfRows=10&pageNo=1&base_date=${yStr}${mStr}${dStr}&base_time=1700&nx=${jejudo_drone_pos.nx}&ny=${jejudo_drone_pos.ny}`;
+    let weather_url = `http://apis.data.go.kr/1360000/VilageFcstInfoService/${service.ultraN}?serviceKey=${weather_key}&dataType=JSON&numOfRows=10&pageNo=1&base_date=${yStr}${mStr}${dStr}&base_time=${hStr}00&nx=${jejudo_drone_pos.nx}&ny=${jejudo_drone_pos.ny}`;
 
+    /*
     fetch(weather_url).then(response => {
         console.log(response);
         response.json().then(result => {
             console.log(result);
         })
-    })
+    })*/
+    let response = await fetch(weather_url);
+    let data = await response.json();
+    
+    let itemList : Item[] = data.response.body.items.item;
+    console.log(itemList);
 
-    return {}
+    let t1h, rn1, uuu, vvv, reh, pty, vec, wsd;
+
+    itemList.forEach(element => {
+        switch(element.category) {
+            case "T1H" : 
+                t1h = element.obsrValue;
+                break;
+            case "RN1" :
+                rn1 = element.obsrValue;
+                break;
+            case "UUU" :
+                uuu = element.obsrValue;
+                break;
+            case "VVV" :
+                vvv = element.obsrValue;
+                break;
+            case "REH" :
+                reh = element.obsrValue;
+                break;
+            case "PTY" :
+                pty = element.obsrValue;
+                break;
+            case "VEC" :
+                vec = element.obsrValue;
+                break;
+            case "WSD" :
+                wsd = element.obsrValue;
+                break;
+        }
+    });
+
+    let result : IWeather = {
+        T1H: t1h,
+        RN1: rn1,
+        UUU: uuu,
+        VVV: vvv,
+        REH: reh,
+        PTY: pty,
+        VEC: vec,
+        WSD: wsd,
+    }
+
+    return result;
 };
 
 export { fetchWeather }
