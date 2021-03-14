@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect, useLayoutEffect } from 'react';
 import { FlatList } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerActions } from '@react-navigation/native';
 import Styled from 'styled-components/native';
 
 import { ScheduleContext } from '@src/Context/Schedule';
@@ -12,6 +13,11 @@ import ScheduleList from './ScheduleList';
 import MenuButton from '@src/Components/Drawer';
 
 const ListContainer = Styled.View``;
+
+const Container = Styled.TouchableOpacity`
+    padding: 8px;
+`;
+const Icon = Styled.Image``;
 
 type NavigationProp = StackNavigationProp<ScheduleParamList, 'MySchedule'>;
 
@@ -25,7 +31,13 @@ const MySchedule = ({ navigation } : Props) => {
         navigation.setOptions({
             title: '나의 일정',
             headerRight: () => (
-                <MenuButton navigation = {navigation}/>
+                <Container
+                    onPress = {() => {
+                            navigation.dispatch(DrawerActions.openDrawer());
+                    }}
+                >
+                    <Icon source = {require('@src/Assets/Images/ic_menu.png')}/>
+                </Container>
             ),
         });
     }, []);
