@@ -9,6 +9,7 @@ import Styled from 'styled-components/native';
 import { UserContext } from '@src/Context/UserData';
 import MenuButton from '@src/Components/Drawer/MenuButton';
 
+import NoticeSection from './NoticeSection';
 import WeatherSection from './WeatherSection';
 
 const Container = Styled.SafeAreaView`
@@ -28,14 +29,23 @@ interface Props {
 }
 
 const MainPage = ({ navigation } : Props) => {
-    const {user, logout} = useContext<IUserContext>(UserContext);
-
-
+    const {user} = useContext<IUserContext>(UserContext);
+                  
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: 'JEJUDO DRONE',
+            headerRight: () => (
+                <MenuButton navigation = {navigation}/>
+            ),
+        });
+        console.log('button created');
+    }, []);
 
     return (
         <Container>
             <FormContainer>
                 <StyledText>{user.name}</StyledText>
+                <NoticeSection/>
                 <WeatherSection onPress = {() => {
                     navigation.navigate('Weather');
                 }}/>

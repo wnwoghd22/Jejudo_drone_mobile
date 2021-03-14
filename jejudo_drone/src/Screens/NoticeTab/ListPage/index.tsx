@@ -18,6 +18,15 @@ interface Props {
 
 const ListPage = ({ navigation } : Props) => {
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: '공지사항',
+            headerRight: () => (
+                <MenuButton navigation = {navigation}/>
+            ),
+        });
+    }, []);
+
     return (
         <ListContainer>
             <NoticeList navigation = {navigation}/>

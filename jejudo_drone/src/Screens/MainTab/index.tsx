@@ -23,15 +23,6 @@ interface Props {
 
 
 const MainTab = ({navigation} : Props) => {
-    
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <MenuButton navigation = {navigation}/>
-            ),
-        });
-        console.log('button created');
-    }, []);
 
     return (
         <Stack.Navigator>
@@ -39,14 +30,14 @@ const MainTab = ({navigation} : Props) => {
                 name = 'Main'
                 component = {MainPage}
                 options = {{
-                    title: "JEJUDO DRONE",
+                    /*title: "JEJUDO DRONE",
                     headerRight: () => (
                         //<MenuButton navigation = {navigation}/>
                         <Button
                             title = "메뉴"
                             onPress = {() => navigation.dispatch(DrawerActions.openDrawer())}
                         />
-                    ),
+                    ),*/
                 }}
             />
             <Stack.Screen
@@ -54,13 +45,13 @@ const MainTab = ({navigation} : Props) => {
                 component = {WeatherPage}
                 options = {{
                     title: "비행장 날씨",
-                    headerRight: () => (
+                    /*headerRight: () => (
                         //<MenuButton navigation = {navigation}/>
                         <Button
                             title = "메뉴"
                             onPress = {() => navigation.dispatch(DrawerActions.openDrawer())}
                         />
-                    ),
+                    ),*/
                 }}
             />
         </Stack.Navigator>

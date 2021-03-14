@@ -8,6 +8,8 @@ import MySchedule from './MySchedule';
 import CalendarPage from './Reservation';
 import PartPage from './PartPage';
 
+import MenuButton from '@src/Components/Drawer';
+
 const Stack = createStackNavigator();
 
 type NaviProp = DrawerNavigationProp<MainPageParamList, 'Schedule'>;
@@ -21,9 +23,6 @@ const ScheduleTab = ({navigation} : Props) => {
             <Stack.Screen 
                 name = 'MySchedule'
                 component = {MySchedule}
-                options = {{
-                    title: "나의 일정"
-                }}
             />
             <Stack.Screen
                 name = 'Calendar'

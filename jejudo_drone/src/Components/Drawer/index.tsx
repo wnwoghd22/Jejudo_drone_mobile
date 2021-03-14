@@ -52,12 +52,11 @@ const DrawerMenu = (props) => {
             <Header>
                 <Title>안녕하세요, {user.name}님</Title>
             </Header>
-            <Button onPress = {() => props.navigation.navigate('Main')}>
-                <ButtonContainer>
-                    <Icon />
-                    <Label>메인</Label>
-                </ButtonContainer>
-            </Button>
+            
+            <DrawerItem
+                label = '메인 화면'
+                onPress = {() => props.navigation.navigate('Main')}
+            />
             <Button onPress = {() => {
                 //props.navigation.navigate('Account');
             }}>

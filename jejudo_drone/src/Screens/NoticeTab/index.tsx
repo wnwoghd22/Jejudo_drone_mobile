@@ -12,8 +12,6 @@ import { UserContext } from '@src/Context/UserData';
 import ListPage from './ListPage';
 import Notice from './Notice';
 
-import MenuButton from '@src/Components/Drawer/MenuButton';
-
 const Stack = createStackNavigator();
 
 type NaviProp = DrawerNavigationProp<MainPageParamList, 'Notice'>;
@@ -22,31 +20,12 @@ interface Props {
 }
 
 const NoticeTab = ({navigation} : Props) => {
-    
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <MenuButton navigation = {navigation}/>
-            ),
-        });
-        console.log('button created');
-    }, []);
 
     return (
         <Stack.Navigator>
             <Stack.Screen
                 name = 'NoticeList'
                 component = {ListPage}
-                options = {{
-                    title: "공지사항",
-                    headerRight: () => (
-                        //<MenuButton navigation = {navigation}/>
-                        <Button
-                            title = "메뉴"
-                            onPress = {() => navigation.dispatch(DrawerActions.openDrawer())}
-                        />
-                    ),
-                }}
             />
             <Stack.Screen 
                 name = 'Notice'

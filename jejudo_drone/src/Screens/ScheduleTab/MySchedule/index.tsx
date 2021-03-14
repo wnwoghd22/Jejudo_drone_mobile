@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useLayoutEffect } from 'react';
 import { FlatList } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Styled from 'styled-components/native';
@@ -7,10 +7,11 @@ import { ScheduleContext } from '@src/Context/Schedule';
 
 import Button from '@src/Components/Button';
 
-import Loading from '@src/Screens/Loading';
-import ListItem from './ListItem';
+import ScheduleList from './ScheduleList';
 
-const Container = Styled.View``;
+import MenuButton from '@src/Components/Drawer';
+
+const ListContainer = Styled.View``;
 
 type NavigationProp = StackNavigationProp<ScheduleParamList, 'MySchedule'>;
 
@@ -19,37 +20,26 @@ interface Props {
 }
 
 const MySchedule = ({ navigation } : Props) => {
-    const {scheduleList} = useContext<IScheduleContext>(ScheduleContext);
-    const [ contentList, setContentList ] = useState<Array<ISchedule> | undefined>(undefined);
-
-    useEffect(() => {
-        if (scheduleList !== undefined) {
-            setContentList(scheduleList);
-        }
-    }, [scheduleList]);
-
-    if (contentList === undefined) {
-        return <Loading/>;
-    }
+   
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: '나의 일정',
+            headerRight: () => (
+                <MenuButton navigation = {navigation}/>
+            ),
+        });
+    }, []);
 
     return (
-        <Container>
-            <FlatList
-                data = {contentList}
-                keyExtractor = {(item, index) => item.id}
-                renderItem = {({item, index}) => (
-                    <ListItem 
-                        content = {item}
-                    />
-                )}
-            />
+        <ListContainer>
+            <ScheduleList navigation = {navigation}/>
             <Button
                 label = "신청"
                 onPress = {() => {
                     navigation.navigate('Calendar');
                 }}
             />
-        </Container>
+        </ListContainer>
     );
 }
 

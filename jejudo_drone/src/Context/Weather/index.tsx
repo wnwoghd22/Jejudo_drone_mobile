@@ -1,4 +1,3 @@
-import { resolvePlugin } from '@babel/core';
 import React, { createContext, useEffect, useState } from 'react';
 import * as Client from './client';
 
