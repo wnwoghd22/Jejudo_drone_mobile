@@ -45,7 +45,7 @@ const PartPage = ({ route, navigation } : Props) => {
     return (
         <Container>
             <DateText>
-                {date}
+                {date.year}년 {date.month}월 {date.date}일
             </DateText>
             <Button label = "오전" onPress = {() => Reserve('morning')} />
             <Button label = "점심시간" onPress = {() => Reserve('noon')} />

@@ -30,6 +30,6 @@ type ScheduleParamList = {
     MySchedule: undefined,
     Calendar: undefined;
     Part: {
-        date: string;
+        date: IDate;
     }
 }

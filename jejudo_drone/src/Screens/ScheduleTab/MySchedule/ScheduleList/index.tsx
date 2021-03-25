@@ -1,11 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { FlatList } from 'react-native';
+import {
+    FlatList,
+    Dimensions,
+} from 'react-native';
 import Styled from 'styled-components/native';
 
 import ListItem from './ListItem';
 import { ScheduleContext } from '@src/Context/Schedule';
 
-const ListContainer = Styled.View``;
+const ListContainer = Styled.View`
+    width: 100%;
+`;
 const Text = Styled.Text``;
 
 interface Props {

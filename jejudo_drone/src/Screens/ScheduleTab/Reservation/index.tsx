@@ -17,9 +17,15 @@ const CalendarPage = ({ navigation } : Props) => {
     return (
         <Container>
             <Calendar
-                onDayPress = {(day) => {
-                    console.log('Pressed : ', day.dateString);
-                    navigation.navigate('Part', {date: day.dateString});
+                onDayPress = {date => {
+                    console.log('Pressed : ', date);
+                    navigation.navigate('Part', {
+                        date: {  
+                            date: date.day,
+                            month: date.month - 1,
+                            year: date.year,
+                        } as IDate
+                    } );
                 }}
             />
         </Container>

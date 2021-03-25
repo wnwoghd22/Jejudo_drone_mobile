@@ -1,6 +1,12 @@
+interface IDate {
+    year: number;
+    month: number;
+    date: number;
+}
+
 interface ISchedule {
     id?: string;
-    date?: string;
+    date?: IDate;
     part?: string;
 }
 
